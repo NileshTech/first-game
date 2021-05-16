@@ -16,14 +16,21 @@ public class Checkpoints : MonoBehaviour
     public Text lapText;
     [HideInInspector]
     public bool missed = false;
-
+    public GameObject PrevCheckpoint;
 
     // Start is called before the first frame update
     void Start()
     {
         GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("checkpoint");
         checkPointCount = checkpoints.Length;
-
+        foreach(GameObject checkpoint in checkpoints)
+        {
+            if(checkpoint.name == "0")
+            {
+                PrevCheckpoint = checkpoint;
+                break;
+            }
+        }
         foreach(GameObject cp in checkpoints)
         {
             visited.Add(Int32.Parse(cp.name), false);
@@ -40,9 +47,10 @@ public class Checkpoints : MonoBehaviour
 
             if(checkpointCurrent == nextCheckpoint)
             {
+                PrevCheckpoint = col.gameObject;
                 visited[checkpointCurrent] = true;
                 checkpoint = checkpointCurrent;
-                if (checkpointCurrent == 0)
+                if (checkpointCurrent == 0 && gameObject.tag == "Player")
                 {
                     lap++;
                     lapText.text = "Lap: " + lap;
