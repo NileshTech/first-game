@@ -9,7 +9,7 @@ public class Checkpoints : MonoBehaviour
     [HideInInspector]
     public int lap = 0;
     [HideInInspector]
-    public int checkpoint = -1;
+    public int checkPoint = -1;
     int checkPointCount;
     int nextCheckpoint = 0;
     Dictionary<int, bool> visited = new Dictionary<int, bool>();
@@ -17,6 +17,8 @@ public class Checkpoints : MonoBehaviour
     [HideInInspector]
     public bool missed = false;
     public GameObject PrevCheckpoint;
+
+    public float timehit;
 
     // Start is called before the first frame update
     void Start()
@@ -47,12 +49,17 @@ public class Checkpoints : MonoBehaviour
 
             if(checkpointCurrent == nextCheckpoint)
             {
+                timehit = Time.time;
                 PrevCheckpoint = col.gameObject;
                 visited[checkpointCurrent] = true;
-                checkpoint = checkpointCurrent;
-                if (checkpointCurrent == 0 && gameObject.tag == "Player")
+                checkPoint = checkpointCurrent;
+                if(checkPoint == 0)
                 {
                     lap++;
+                }
+                if (checkpointCurrent == 0 && gameObject.tag == "Player")
+                {
+                   
                     lapText.text = "Lap: " + lap;
                 }
                 nextCheckpoint++;
