@@ -33,6 +33,7 @@ public class Checkpoints : MonoBehaviour
     // Update is called once per frame
     void OnTriggerEnter(Collider col)
     {
+        Debug.Log("collision");
         if(col.gameObject.tag == "checkpoint")
         {
             int checkpointCurrent = int.Parse(col.gameObject.name);
