@@ -7,6 +7,8 @@ public class UIScript : MonoBehaviour
 {
     GameObject Player;
     public GameObject missedcheckpointText;
+    public GameObject positionText;
+
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");      
@@ -14,6 +16,7 @@ public class UIScript : MonoBehaviour
 
     void Update()
     {
+        positionText.GetComponent<Text>().text = "Position: " + CalculatePositions.getPositions(Player.name);
         if (Player.GetComponent<Checkpoints>().missed == true)
         {
             StartCoroutine(showmissedCheckpointText());
